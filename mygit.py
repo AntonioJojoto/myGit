@@ -1,38 +1,13 @@
 import argparse
-import configparser
 from datetime import datetime
-import grp
-import hashlib
-import os
-import pwd
-import re
 import sys
-import zlib
-from fnmatch import fnmatch
-from math import ceil
 
 # My modules
+from utils.argparser_def import define_argparser
 from utils.path import *
 from repository.repofun import repo_create
 
-
-# Define the arguments used when calling mygit, description is shown when --help
-argparser = argparse.ArgumentParser(description="Antonio Content tracker")
-
-# Extents the argparser by adding subparsers
-# The commands show
-argsubparsers = argparser.add_subparsers(title="Commands", dest="command")
-argsubparsers.required = True   # Makes mandatory to add subparsers
-
-# Creates a new argparser for the init command
-argsp = argsubparsers.add_parser("init", help="Initialize a new, empty repository.")
-
-argsp.add_argument("path",
-                   metavar="directory",
-                   nargs="?",
-                   default=".",
-                   help="Where to create the repository.")
-
+argparser = define_argparser()
 
 def cmd_init(args):
     repo_create(args.path)

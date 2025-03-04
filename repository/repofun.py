@@ -1,8 +1,10 @@
 import os
 import configparser
 from os.path import isdir
+import sys
 
-from repository.GitRepository import GitRepository
+from .GitRepository import GitRepository
+from .object_fun import object_read, object_find
 from utils.path import repo_file,repo_dir
 
 def repo_create(path):
@@ -105,4 +107,8 @@ def repo_default_config():
 
     return ret
 
-
+# Functions for cat-file
+def cat_file(repo, obj, fmt=None):
+    """ Read the contents of the objects and shows them in the terminal """
+    obj = object_read(repo, object_find(repo, obj, fmt=fmt))
+    sys.stdout.buffer.write(obj.serialize())

@@ -57,3 +57,6 @@ def object_write(obj, repo=None):
                 # Compress and write
                 f.write(zlib.compress(result))
     return sha
+
+def object_find(repo, name, fmt=None, follow=True):
+    return name
